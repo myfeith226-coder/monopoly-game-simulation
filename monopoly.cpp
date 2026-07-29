@@ -2,12 +2,13 @@
 
 using namespace std;
 
-struct Node {
+struct Node{
     string petak;
     Node* next;
 };
 
 struct monopolySllc {
+    
     // Deklarasi dan inisialisasi Head
     Node* Head = NULL;
 
@@ -20,49 +21,57 @@ struct monopolySllc {
         }
     }
 
-    // Menambah data di depan
-    void insertdepan(string petakbaru) {
-        Node* baru, *bantu;
-        baru = new Node;
+    // Inisialisasi Node (Petak) sebanyak 40 petak
+    // Inisialisasi data di depan
+    void initdepan(string nama_petak[40]) {
+        for(int i = 0; i <= 40; i++) {
+            Node* baru, *bantu;
+            baru = new Node;
 
-        baru->petak = petakbaru;
-        baru->next = baru;
+            baru->petak = nama_petak[40];
+            baru->next = baru;
 
-        if(isEmpty() == 1) {
-            Head = baru;
-            Head->next = Head;
-        } else {
-            bantu = Head;
-            while(bantu->next != Head) {
-                bantu = bantu->next;
+            if(isEmpty() == 1) {
+                Head = baru;
+                Head->next = Head;
+            } else {
+                bantu = Head;
+                while(bantu->next != Head) {
+                    bantu = bantu->next;
+                }
+                baru->next = Head;
+                Head = baru;
+                bantu->next = Head;
             }
-            baru->next = Head;
-            Head = baru;
-            bantu->next = Head;
         }
-        cout << "Data berhasil masuk di depan!" << endl;
     }
 
-    // Menambah data di belakang
-    void insertbelakang(string petakbaru) {
-        Node* baru, *bantu;
-        baru = new Node;
+    // Inisialisasi Node (petak) di belakang
+    void initbelakang(string petakbaru) {
+        for(int i = 0; i <= 40; i++) {
+            Node* baru, *bantu;
+            baru = new Node;
 
-        baru->petak = petakbaru;
-        baru->next = baru;
+            baru->petak = petakbaru;
+            baru->next = baru;
 
-        if(isEmpty() == 1) {
-            Head = baru;
-            Head->next = Head;
-        } else {
-            bantu = Head;
-            while(bantu->next != Head) {
-                bantu = bantu->next;
+            if(isEmpty() == 1) {
+                Head = baru;
+                Head->next = Head;
+            } else {
+                bantu = Head;
+                while(bantu->next != Head) {
+                    bantu = bantu->next;
+                }
+                bantu->next = baru;
+                baru->next = Head;
             }
-            bantu->next = baru;
-            baru->next = Head;
-        }
-        cout << "Data berhasil masuk di belakang!" << endl;
+        }    
+    }
+
+    // Fungsi untuk menggeser posisi pemain sebanyak angka dadu
+    void kocokDaduDanJalan() {
+
     }
 };
 
@@ -76,6 +85,9 @@ void screen() {
 }
 
 int main() {
+// Array untuk petak dan namanya
+string nama_petak[40] = {"cokelat tua", "cokelat tua", "biru muda", "biru muda", "biru muda", "ungu muda", "ungu muda", "ungu muda", "oranye", "oranye", "oranye", "merah", "merah", "merah", "kuning", "kuning", "kuning", "hijau", "hijau", "hijau", "biru tua", "biru tua", 
+    "stasiun kereta", "stasiun kereta", "stasiun kereta", "stasiun kereta", "perusahaan", "perusahaan", "mulai", "penjara", "parkir bebas", "masuk penjara", "kesempatan", "kesempatan", "kesempatan", "dana umum", "dana umum", "dana umum", "pajak pendapatan"};
 
 screen();
 
