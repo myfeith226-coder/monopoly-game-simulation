@@ -4,6 +4,7 @@ using namespace std;
 
 struct Node{
     string petak;
+    char player;
     Node* next;
 };
 
@@ -66,8 +67,15 @@ struct monopolySllc {
     }
 
     // Fungsi untuk menggeser posisi pemain sebanyak angka dadu
-    void kocokDaduDanJalan() {
+    void kocokDaduDanJalan(char player, int angkadadu) {
+        Node* posisi;
+        posisi = new Node;
 
+        posisi->player = player;
+
+        do {
+            posisi = posisi->next;
+        } while(angkadadu > 0);
     }
 };
 
