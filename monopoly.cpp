@@ -1,4 +1,7 @@
 #include <iostream>
+// Library untuk menghasilkan angka acak
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -24,11 +27,11 @@ struct monopolySllc {
 
     // Inisialisasi Node (Petak) sebanyak 40 petak
     // Inisialisasi data di depan
-    void initdepan(string &nama_petak) {
+    void initdepan(string nama_petak[40]) {
             Node* baru, *bantu;
             baru = new Node;
 
-            baru->petak = nama_petak;
+            baru->petak = nama_petak[40];
             baru->next = baru;
 
             if(isEmpty() == 1) {
@@ -46,11 +49,11 @@ struct monopolySllc {
     }
 
     // Inisialisasi Node (petak) di belakang
-    void initbelakang(string &nama_petak) {
+    void initbelakang(string nama_petak[40]) {
             Node* baru, *bantu;
             baru = new Node;
 
-            baru->petak = nama_petak;
+            baru->petak = nama_petak[40];
             baru->next = baru;
 
             if(isEmpty() == 1) {
@@ -68,24 +71,11 @@ struct monopolySllc {
 
     // Fungsi untuk menggeser posisi pemain sebanyak angka dadu
     void kocokDaduDanJalan(char player, int angkadadu) {
-        Node* posisi;
-        posisi = new Node;
-
-        posisi->player = player;
-
-        do {
-            posisi = posisi->next;
-        } while(angkadadu > 0);
+         
     }
 };
 
 void screen() {
-    cout << R"(   _____                                     .__            ________                          _________.__              .__          __                 
-  /     \   ____   ____   ____ ______   ____ |  | ___.__.  /  _____/_____    _____   ____    /   _____/|__| _____  __ __|  | _____ _/  |_  ___________  
- /  \ /  \ /  _ \ /    \ /  _ \\____ \ /  _ \|  |<   |  | /   \  ___\__  \  /     \_/ __ \   \_____  \ |  |/     \|  |  \  | \__  \\   __\/  _ \_  __ \ 
-/    Y    (  <_> )   |  (  <_> )  |_> >  <_> )  |_\___  | \    \_\  \/ __ \|  Y Y  \  ___/   /        \|  |  Y Y  \  |  /  |__/ __ \|  | (  <_> )  | \/ 
-\____|__  /\____/|___|  /\____/|   __/ \____/|____/ ____|  \______  (____  /__|_|  /\___  > /_______  /|__|__|_|  /____/|____(____  /__|  \____/|__|    
-        \/            \/       |__|               \/              \/     \/      \/     \/          \/          \/                \/                    )";
     cout << "=============================================================================================================================================" << endl;
     cout << "1. Mainkan Game" << endl;
     cout << "2. Exit" << endl;
@@ -93,20 +83,34 @@ void screen() {
 }
 
 int main() {
+// Inisialisasi Seed (benih) menggunakan fungsi srand() untuk mengatur seed agar menghasilkan angka acak setiap kali program di jalankan
+srand(time(0));
+
+// Menghasilkan angka acak dari satu sanpai enam
+int dadu = rand() % 6 + 1;
+
 // Array untuk petak dan namanya
 string nama_petak[40] = {"cokelat tua", "cokelat tua", "biru muda", "biru muda", "biru muda", "ungu muda", "ungu muda", "ungu muda", "oranye", "oranye", "oranye", "merah", "merah", "merah", "kuning", "kuning", "kuning", "hijau", "hijau", "hijau", "biru tua", "biru tua", 
     "stasiun kereta", "stasiun kereta", "stasiun kereta", "stasiun kereta", "perusahaan", "perusahaan", "mulai", "penjara", "parkir bebas", "masuk penjara", "kesempatan", "kesempatan", "kesempatan", "dana umum", "dana umum", "dana umum", "pajak pendapatan"};
 
+// Deklarasi dan Inisialisasi Objek struct monopolySllc
 monopolySllc mnp;
-mnp.initdepan(nama_petak[40]);
-mnp.initbelakang(nama_petak[40]);
+mnp.initdepan(nama_petak);
+mnp.initbelakang(nama_petak);
 
 int pilihan;
+char kocok;
 screen();
 cin >> pilihan;
 
 if(pilihan == 1) {
-
+    cout << "Ketik 'K' untuk mengocok dadu: ";
+    cin >> kocok;
+    if(kocok == 'K' || kocok == 'k') {
+        cout << "Dadu: " << dadu << endl;
+    } else {
+        cout << "Error: input anda tidak valid!" << endl;
+    }
 }
 
     return 0;
