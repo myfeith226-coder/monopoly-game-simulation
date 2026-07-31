@@ -26,34 +26,37 @@ struct monopolySllc {
     }
 
     // Inisialisasi Node (Petak) sebanyak 40 petak
-    // Inisialisasi data di depan
-    void initdepan(string nama_petak[40]) {
-            Node* baru, *bantu;
-            baru = new Node;
+    // Inisialisasi 40 petak dengan memasukkannya satu per satu di depan
+    void initdepan(const string nama_petak[40]) {
+            for(int i = 0; i < 40; i++) {
+                Node* baru, *bantu;
+                baru = new Node;
 
-            baru->petak = nama_petak[40];
-            baru->next = baru;
+                baru->petak = nama_petak[i];
+                baru->next = baru;
 
-            if(isEmpty() == 1) {
-                Head = baru;
-                Head->next = Head;
-            } else {
-                bantu = Head;
-                while(bantu->next != Head) {
-                    bantu = bantu->next;
+                if(isEmpty() == 1) {
+                    Head = baru;
+                    Head->next = Head;
+                } else {
+                    bantu = Head;
+                    while(bantu->next != Head) {
+                        bantu = bantu->next;
+                    }
+                    baru->next = Head;
+                    Head = baru;
+                    bantu->next = Head;
                 }
-                baru->next = Head;
-                Head = baru;
-                bantu->next = Head;
             }
     }
 
-    // Inisialisasi Node (petak) di belakang
-    void initbelakang(string nama_petak[40]) {
+    // Inisialisasi 40 Node (petak) dengan memasukkannya satu per satu di belakang
+    void initbelakang(const string nama_petak[40]) {
+        for(int i = 0; i < 40; i++) {
             Node* baru, *bantu;
             baru = new Node;
 
-            baru->petak = nama_petak[40];
+            baru->petak = nama_petak[i];
             baru->next = baru;
 
             if(isEmpty() == 1) {
@@ -67,6 +70,7 @@ struct monopolySllc {
                 bantu->next = baru;
                 baru->next = Head;
             }  
+        }
     }
 
     // Fungsi untuk menggeser posisi pemain sebanyak angka dadu
@@ -96,7 +100,6 @@ string nama_petak[40] = {"cokelat tua", "cokelat tua", "biru muda", "biru muda",
 // Deklarasi dan Inisialisasi Objek struct monopolySllc
 monopolySllc mnp;
 mnp.initdepan(nama_petak);
-mnp.initbelakang(nama_petak);
 
 int pilihan;
 char kocok;
