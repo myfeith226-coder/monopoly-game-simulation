@@ -74,8 +74,17 @@ struct monopolySllc {
     }
 
     // Fungsi untuk menggeser posisi pemain sebanyak angka dadu
-    void kocokDaduDanJalan(char player, int angkadadu) {
-         
+    void kocokDaduDanJalan(char &player, int &angkadadu) {
+         Node* posisi;
+         posisi = new Node;
+
+         posisi->player = player;
+         posisi->next = posisi;
+
+         do {
+            posisi = posisi->next;
+         } while(angkadadu == true);
+         cout << "Player bergerak sebanyak: " << angkadadu << " dadu" << endl;
     }
 };
 
@@ -91,7 +100,7 @@ int main() {
 srand(time(0));
 
 // Menghasilkan angka acak dari satu sanpai enam
-int dadu = rand() % 6 + 1;
+int angkadadu = rand() % 6 + 1;
 
 // variabel untuk menghasilkan huruf random dari rentang a-z
 char random_letter = 'a' + rand() % 26; // huruf acak dari a-z
@@ -120,10 +129,12 @@ if(pilihan == 1) {
     cout << "Ketik 'K' untuk mengocok dadu: ";
     cin >> kocok;
     if(kocok == 'K' || kocok == 'k') {
-        cout << "Dadu: " << dadu << endl;
+        cout << "Dadu: " << angkadadu << endl;
     } else {
         cout << "Error: input anda tidak valid!" << endl;
     }
+    mnp.kocokDaduDanJalan(player, angkadadu);
+    
 }
 
     return 0;
