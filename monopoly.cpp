@@ -93,6 +93,9 @@ srand(time(0));
 // Menghasilkan angka acak dari satu sanpai enam
 int dadu = rand() % 6 + 1;
 
+// variabel untuk menghasilkan huruf random dari rentang a-z
+char random_letter = 'a' + rand() % 26; // huruf acak dari a-z
+
 // Array untuk petak dan namanya
 string nama_petak[40] = {"cokelat tua", "cokelat tua", "biru muda", "biru muda", "biru muda", "ungu muda", "ungu muda", "ungu muda", "oranye", "oranye", "oranye", "merah", "merah", "merah", "kuning", "kuning", "kuning", "hijau", "hijau", "hijau", "biru tua", "biru tua", 
     "stasiun kereta", "stasiun kereta", "stasiun kereta", "stasiun kereta", "perusahaan", "perusahaan", "mulai", "penjara", "parkir bebas", "masuk penjara", "kesempatan", "kesempatan", "kesempatan", "dana umum", "dana umum", "dana umum", "pajak pendapatan"};
@@ -102,11 +105,18 @@ monopolySllc mnp;
 mnp.initdepan(nama_petak);
 
 int pilihan;
-char kocok;
+char kocok, player;
 screen();
 cin >> pilihan;
 
 if(pilihan == 1) {
+    cout << "Tekan 'P' untuk memilih karakter secara acak: ";
+    cin >> player;
+    if(player == 'p' || player == 'P') {
+        cout << "Karakter player: " << random_letter << endl; 
+    } else {
+        cout << "Error: input anda tidak valid!" << endl;
+    }
     cout << "Ketik 'K' untuk mengocok dadu: ";
     cin >> kocok;
     if(kocok == 'K' || kocok == 'k') {
