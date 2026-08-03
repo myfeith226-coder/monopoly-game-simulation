@@ -16,7 +16,7 @@ struct monopolySllc {
     // Deklarasi dan inisialisasi Head
     Node* Head = NULL;
 
-    // Fungsi untuk mengetahui kosong tidaknya suatu SIngle Linkedlist Circular dengan Head
+    // Fungsi untuk mengetahui kosong tidaknya suatu Single Linkedlist Circular dengan Head
     int isEmpty() {
         if(Head == NULL) {
             return 1; 
@@ -74,17 +74,33 @@ struct monopolySllc {
     }
 
     // Fungsi untuk menggeser posisi pemain sebanyak angka dadu
-    void kocokDaduDanJalan(char &player, int &angkadadu) {
-         Node* posisi;
-         posisi = new Node;
+    void kocokDaduDanJalan(char &player, int &angkadadu, const string nama_petak[40]) { 
+                Node* posisi;
+                posisi = new Node;
 
-         posisi->player = player;
-         posisi->next = posisi;
+                posisi->player = player;
+                posisi->petak = nama_petak[i];
+                posisi->next = posisi;
 
-         do {
-            posisi = posisi->next;
-         } while(angkadadu == true);
-         cout << "Player bergerak sebanyak: " << angkadadu << " dadu" << endl;
+            do {
+                posisi = posisi->next;
+            } while(angkadadu == true);
+            cout << "Player bergerak sebanyak: " << angkadadu << " dadu" << endl;
+            cout << "Posisi player ada di: " << posisi->petak << endl;
+        
+         
+    }
+
+    void tampilposisi() {
+        Node* bantu;
+        bantu = Head;
+
+        if(isEmpty() == 0) {
+            do {
+                bantu = bantu->next;
+            } while(bantu != Head);
+            cout << "Posisi player ada di: " << bantu->player << endl;
+        }
     }
 };
 
@@ -133,9 +149,11 @@ if(pilihan == 1) {
     } else {
         cout << "Error: input anda tidak valid!" << endl;
     }
-    mnp.kocokDaduDanJalan(player, angkadadu);
-    
+    mnp.kocokDaduDanJalan(player, angkadadu, nama_petak);
 }
 
     return 0;
 }
+
+// Note: Step selanjutnya yaitu membuat fungsi untuk menampilkan posisi player saat ini dengan logika yang sama dengan tampilkan semua data
+// di Single Linkedlist Circular dengan Head
