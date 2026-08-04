@@ -15,6 +15,7 @@ struct monopolySllc {
     
     // Deklarasi dan inisialisasi Head
     Node* Head = NULL;
+    Node* posisiPlayer = NULL;
 
     // Fungsi untuk mengetahui kosong tidaknya suatu Single Linkedlist Circular dengan Head
     int isEmpty() {
@@ -33,6 +34,7 @@ struct monopolySllc {
                 baru = new Node;
 
                 baru->petak = nama_petak[i];
+                baru->player = '\0';
                 baru->next = baru;
 
                 if(isEmpty() == 1) {
@@ -48,6 +50,7 @@ struct monopolySllc {
                     bantu->next = Head;
                 }
             }
+            posisiPlayer = Head;
     }
 
     // Inisialisasi 40 Node (petak) dengan memasukkannya satu per satu di belakang
@@ -57,6 +60,7 @@ struct monopolySllc {
             baru = new Node;
 
             baru->petak = nama_petak[i];
+            baru->player = '\0';
             baru->next = baru;
 
             if(isEmpty() == 1) {
@@ -71,35 +75,33 @@ struct monopolySllc {
                 baru->next = Head;
             }  
         }
+        posisiPlayer = Head;
     }
 
-    // Fungsi untuk menggeser posisi pemain sebanyak angka dadu
-    void kocokDaduDanJalan(char &player, int &angkadadu, const string nama_petak[40]) { 
-                Node* posisi;
-                posisi = new Node;
+    // Fungsi untuk mengocok dadu dan menggerakkan pemain sebanyak angka dadu
+    void kocokDaduDanJalan(char player, int angkadadu) {
+        if(posisiPlayer == NULL) {
+            cout << "Linked list belum diinisialisasi." << endl;
+            return;
+        }
 
-                posisi->player = player;
-                posisi->petak = nama_petak[i];
-                posisi->next = posisi;
+        Node* posisi = posisiPlayer;
+        cout << "Player bergerak sebanyak: " << angkadadu << " langkah" << endl;
 
-            do {
-                posisi = posisi->next;
-            } while(angkadadu == true);
-            cout << "Player bergerak sebanyak: " << angkadadu << " dadu" << endl;
-            cout << "Posisi player ada di: " << posisi->petak << endl;
-        
-         
+        for(int i = 0; i < angkadadu; i++) {
+            posisi = posisi->next;
+            cout << "Player bergerak melewati: " << posisi->petak << endl;
+        }
+
+        posisiPlayer = posisi;
+        posisiPlayer->player = player;
+        cout << endl;
+        cout << "Posisi player ada di: " << posisiPlayer->petak << endl;
     }
 
     void tampilposisi() {
-        Node* bantu;
-        bantu = Head;
-
-        if(isEmpty() == 0) {
-            do {
-                bantu = bantu->next;
-            } while(bantu != Head);
-            cout << "Posisi player ada di: " << bantu->player << endl;
+        if(isEmpty() == 0 && posisiPlayer != NULL) {
+            cout << "Posisi player ada di: " << posisiPlayer->petak << endl;
         }
     }
 };
@@ -111,12 +113,16 @@ void screen() {
     cout << "Pilih: ";
 }
 
+int lemparDadu() {
+    return rand() % 6 + 1;
+}
+
 int main() {
 // Inisialisasi Seed (benih) menggunakan fungsi srand() untuk mengatur seed agar menghasilkan angka acak setiap kali program di jalankan
 srand(time(0));
 
-// Menghasilkan angka acak dari satu sanpai enam
-int angkadadu = rand() % 6 + 1;
+// Menghasilkan angka acak dari satu sampai enam
+int angkadadu = lemparDadu();
 
 // variabel untuk menghasilkan huruf random dari rentang a-z
 char random_letter = 'a' + rand() % 26; // huruf acak dari a-z
@@ -149,7 +155,7 @@ if(pilihan == 1) {
     } else {
         cout << "Error: input anda tidak valid!" << endl;
     }
-    mnp.kocokDaduDanJalan(player, angkadadu, nama_petak);
+    mnp.kocokDaduDanJalan(player, angkadadu);
 }
 
     return 0;
